@@ -17,24 +17,75 @@
 // removeAllUsers
 
 class User {
-    constructor(name, role = "user") {
-    this.name = name;
-    this.role = role;
+  constructor(name, role = "user", password) {
+    if (typeof name !== "string" || !name.trim()) {
+      alert("⚠ Invalid name! Using default 'Unknown'.");
+      this.name = "Unknown";
+    } else {
+      this.name = name.trim();
+    }
+
+    if (role !== "admin" && role !== "user") {
+      alert(`Invalid role "${role}"! Using default 'user'.`);
+      this.role = "user";
+    } else {
+      this.role = role;
+    }
+
+    if (typeof password !== "string" || password.length < 8) {
+      alert("Password must be at least 8 characters!");
+      throw new Error("Invalid password. User not created.");
+    } else {
+      this.password = password;
+    }
+
     this.isLoggedIn = false;
-    this.password = "12345678";
+  }
+
+  getName() {
+    return this.name;
+  }
+
+  getRole() {
+    return this.role;
+  }
+
+  login() {
+    this.isLoggedIn = true;
+    console.log(`${this.name} logged in.`);
+  }
+
+  logout() {
+    this.isLoggedIn = false;
+    console.log(`${this.name} logged out.`);
+  }
+
+  changeName(newName) {
+    if (typeof newName !== "string" || !newName.trim()) {
+      alert("⚠ Invalid new name!");
+      return;
+    }
+    console.log(`Name changed: ${this.name} → ${newName.trim()}`);
+    this.name = newName.trim();
+  }
+
+  changePassword(oldPassword, newPassword) {
+    if (this.password !== oldPassword) {
+      alert("Incorrect old password!");
+      return;
+    }
+
+    if (typeof newPassword !== "string" || newPassword.length < 8) {
+      alert("Password must be at least 8 characters!");
+      return;
+    }
+
+    this.password = newPassword;
+    console.log(`Password changed successfully for ${this.name}`);
+  }
 }
 
-}
-
- 
-
-
-
-
-
-
-
-
+export default User;
 
 
 

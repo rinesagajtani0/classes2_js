@@ -49,3 +49,9 @@ h1 {
   margin: 4px;
   padding: 6px 10px;
 }
+
+.clock .output {
+  margin: 8px 0;
+  font-size: 16px;
+  min-height: 18px;
+}

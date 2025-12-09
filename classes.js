@@ -285,14 +285,14 @@ function createClockElement(clockInstance) {
 addClockBtn.addEventListener("click", () => {
   const tz = tzInput.value.trim();
   if (!tz) {
-    alert("⚠ Please enter a timezone name (e.g. Europe/London).");
+    alert("Please enter a timezone name (e.g. Europe/London).");
     return;
   }
 
   try {
     new Date().toLocaleString("en-GB", { timeZone: tz });
   } catch (e) {
-    alert("⚠ Invalid timezone name!");
+    alert("Invalid timezone name!");
     return;
   }
 
@@ -302,3 +302,4 @@ addClockBtn.addEventListener("click", () => {
 
   tzInput.value = "";
 });
+

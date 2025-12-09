@@ -142,7 +142,66 @@ class Admin extends User {
 }
 
 
+let enteredName = prompt("Enter your name:");
+let enteredRole = prompt("Enter your role (admin/user):");
+let enteredPassword = prompt("Create a password (at least 8 characters):");
 
+let currentUser;
+
+try {
+  if (enteredRole === "admin") {
+    currentUser = new Admin(enteredName, enteredPassword);
+  } else {
+    currentUser = new User(enteredName, enteredRole, enteredPassword);
+  }
+
+  console.log(`Welcome, ${currentUser.getName()}! Role: ${currentUser.getRole()}`);
+  currentUser.login();
+} catch (error) {
+  alert("User creation failed due to invalid input.");
+  throw error;
+}
+
+let changeNameConfirm = confirm("Do you want to change your name?");
+if (changeNameConfirm) {
+  let newName = prompt("Enter your new name:");
+  currentUser.changeName(newName);
+}
+
+let changePwConfirm = confirm("Do you want to change your password?");
+if (changePwConfirm) {
+  let oldPw = prompt("Enter your old password:");
+  let newPw = prompt("Enter new password (8+ characters):");
+  currentUser.changePassword(oldPw, newPw);
+}
+
+if (currentUser.getRole() === "admin") {
+  const admin = currentUser;
+
+  console.log("Admin Mode Activated!");
+
+  let addMore = true;
+
+  while (addMore) {
+    let userNameToAdd = prompt("Enter a user name to add:");
+    let userRoleToAdd = prompt("Enter their role (admin/user):");
+    let userPasswordToAdd = prompt("Create a password for this user (8+ characters):");
+
+    try {
+      const newUser = new User(userNameToAdd, userRoleToAdd, userPasswordToAdd);
+      admin.addUser(newUser);
+    } catch (err) {
+      alert("Failed to add user. Please try again.");
+    }
+
+    addMore = confirm("Do you want to add another user?");
+  }
+
+  console.log("Final users list:");
+  admin.getAllUsers();
+}
+
+console.log("End of interaction demo!");
 
 
 

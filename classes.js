@@ -223,4 +223,18 @@
 
 // Mockup(a simple model)
 
-console.log("App loaded — clocks dashboard starting...");
+class WorldClock {
+  constructor(timezone) {
+    this.timezone = timezone;
+  }
+
+  getCurrentDate() {
+    const now = new Date();
+    return now.toLocaleDateString("en-GB", { timeZone: this.timezone });
+  }
+
+  getCurrentDateTime() {
+    const now = new Date();
+    return now.toLocaleString("en-GB", { timeZone: this.timezone });
+  }
+}

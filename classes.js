@@ -238,3 +238,45 @@ class WorldClock {
     return now.toLocaleString("en-GB", { timeZone: this.timezone });
   }
 }
+
+const tzInput = document.getElementById("timezone-input");
+const addClockBtn = document.getElementById("add-clock-btn");
+const clocksContainer = document.getElementById("clocks-container");
+
+function createClockElement(clockInstance) {
+  const wrapper = document.createElement("div");
+  wrapper.className = "clock";
+
+  const label = document.createElement("div");
+  label.className = "tz-label";
+  label.textContent = clockInstance.timezone;
+  wrapper.append(label);
+
+  const output = document.createElement("div");
+  output.className = "output";
+  output.textContent = ""; 
+  wrapper.append(output);
+
+  return wrapper;
+}
+
+addClockBtn.addEventListener("click", () => {
+  const tz = tzInput.value.trim();
+  if (!tz) {
+    alert("⚠ Please enter a timezone name (e.g. Europe/London).");
+    return;
+  }
+
+  try {
+    new Date().toLocaleString("en-GB", { timeZone: tz });
+  } catch (e) {
+    alert("⚠ Invalid timezone name!");
+    return;
+  }
+
+  const clock = new WorldClock(tz);
+  const clockEl = createClockElement(clock);
+  clocksContainer.append(clockEl);
+
+  tzInput.value = "";
+});

@@ -15,6 +15,10 @@
 // changeUserRole
 // getAllUsers
 // removeAllUsers
+
+class User {
+}
+
  
 
 

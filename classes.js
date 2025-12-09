@@ -257,8 +257,30 @@ function createClockElement(clockInstance) {
   output.textContent = ""; 
   wrapper.append(output);
 
+  const btnDate = document.createElement("button");
+  btnDate.textContent = "Show Date";
+  btnDate.addEventListener("click", () => {
+    output.textContent = clockInstance.getCurrentDate();
+  });
+  wrapper.append(btnDate);
+
+  const btnDateTime = document.createElement("button");
+  btnDateTime.textContent = "Show Date & Time";
+  btnDateTime.addEventListener("click", () => {
+    output.textContent = clockInstance.getCurrentDateTime();
+  });
+  wrapper.append(btnDateTime);
+
+  const btnDelete = document.createElement("button");
+  btnDelete.textContent = "Delete Clock";
+  btnDelete.addEventListener("click", () => {
+    wrapper.remove();
+  });
+  wrapper.append(btnDelete);
+
   return wrapper;
 }
+
 
 addClockBtn.addEventListener("click", () => {
   const tz = tzInput.value.trim();

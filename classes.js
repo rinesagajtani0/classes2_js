@@ -17,6 +17,13 @@
 // removeAllUsers
 
 class User {
+    constructor(name, role = "user") {
+    this.name = name;
+    this.role = role;
+    this.isLoggedIn = false;
+    this.password = "12345678";
+}
+
 }
 
  

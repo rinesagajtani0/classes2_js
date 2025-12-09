@@ -85,7 +85,61 @@ class User {
   }
 }
 
-export default User;
+class Admin extends User {
+  constructor(name, password) {
+    super(name, "admin", password);
+    this.users = [];
+  }
+
+  addUser(user) {
+    if (!(user instanceof User)) {
+      alert("Only User objects can be added!");
+      return;
+    }
+    this.users.push(user);
+    console.log(`User added: ${user.name}`);
+  }
+
+  removeUser(username) {
+    this.users = this.users.filter(user => user.name !== username);
+    console.log(`User removed: ${username}`);
+  }
+
+  changeUserRole(username, newRole) {
+    const user = this.users.find(user => user.name === username);
+
+    if (!user) {
+      alert("User not found!");
+      return;
+    }
+
+    if (newRole !== "admin" && newRole !== "user") {
+      alert("Role must be admin or user!");
+      return;
+    }
+
+    console.log(`Role updated for ${username}: → ${newRole}`);
+    user.role = newRole;
+  }
+
+  getAllUsers() {
+    console.table(this.users.map(user => ({
+      Name: user.name,
+      Role: user.role,
+      LoggedIn: user.isLoggedIn
+    })));
+    return this.users;
+  }
+
+  removeAllUsers() {
+    this.users = [];
+    console.log("All users removed!");
+  }
+
+  static isAdmin(user) {
+    return user instanceof User && user.role === "admin";
+  }
+}
 
 
 
